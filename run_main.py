@@ -10,6 +10,11 @@ import argparse
 
 IMAGE_SIZE_MNIST = 28
 
+#to enable tf.placeholder
+import tensorflow.compat.v1 as tf 
+tf.disable_v2_behavior()
+
+
 """parsing and configuration"""
 def parse_args():
     desc = "Tensorflow implementation of 'Variational AutoEncoder (VAE)'"

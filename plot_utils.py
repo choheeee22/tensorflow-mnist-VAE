@@ -1,7 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.misc import imsave
+#import imageio # update to solve the scipy version error
 from scipy.misc import imresize
+import cv2
 
 class Plot_Reproduce_Performance():
     def __init__(self, DIR, n_img_x=8, n_img_y=8, img_w=28, img_h=28, resize_factor=1.0):
@@ -25,6 +27,7 @@ class Plot_Reproduce_Performance():
     def save_images(self, images, name='result.jpg'):
         images = images.reshape(self.n_img_x*self.n_img_y, self.img_h, self.img_w)
         imsave(self.DIR + "/"+name, self._merge(images, [self.n_img_y, self.n_img_x]))
+        #imageio.imwrite(self.DIR + "/"+name, self._merge(images, [self.n_img_y, self.n_img_x]))
 
     def _merge(self, images, size):
         h, w = images.shape[1], images.shape[2]
@@ -39,6 +42,7 @@ class Plot_Reproduce_Performance():
             j = int(idx / size[1])
 
             image_ = imresize(image, size=(w_,h_), interp='bicubic')
+            #image_ = cv2.resize(image, size=(w_,h_), interp='bicubic')
 
             img[j*h_:j*h_+h_, i*w_:i*w_+w_] = image_
 
@@ -89,6 +93,7 @@ class Plot_Manifold_Learning_Result():
     def save_images(self, images, name='result.jpg'):
         images = images.reshape(self.n_img_x*self.n_img_y, self.img_h, self.img_w)
         imsave(self.DIR + "/"+name, self._merge(images, [self.n_img_y, self.n_img_x]))
+        #imageio.imwrite(self.DIR + "/"+name, self._merge(images, [self.n_img_y, self.n_img_x]))
 
     def _merge(self, images, size):
         h, w = images.shape[1], images.shape[2]
@@ -102,7 +107,8 @@ class Plot_Manifold_Learning_Result():
             i = int(idx % size[1])
             j = int(idx / size[1])
 
-            image_ = imresize(image, size=(w_, h_), interp='bicubic')
+            Image_ = imresize(image, size=(w_, h_), interp='bicubic')
+            #Image_ = cv2.resize(image, size=(w_, h_), interp='bicubic')
 
             img[j * h_:j * h_ + h_, i * w_:i * w_ + w_] = image_
 
